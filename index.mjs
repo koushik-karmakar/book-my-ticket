@@ -11,29 +11,33 @@ import pg from "pg";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
-
+import dotenv from "dotenv";
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
+dotenv.config();
 const port = process.env.PORT || 8080;
-
+import router from "./src/app";
 // Equivalent to mongoose connection
 // Pool is nothing but group of connections
 // If you pick one connection out of the pool and release it
 // the pooler will keep that connection open for sometime to other clients to reuse
 const pool = new pg.Pool({
-  host: "localhost",
-  port: 5433,
-  user: "postgres",
-  password: "postgres",
-  database: "sql_class_2_db",
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   max: 20,
   connectionTimeoutMillis: 0,
   idleTimeoutMillis: 0,
 });
-
+// check if the db is conneced or not 
+pool
+  .query("SELECT 1")
+  .then(() => console.log("DB connected"))
+  .catch((err) => console.error("DB failed:", err.message));
+/////////////////////////////////////////////
 const app = new express();
 app.use(cors());
-
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
