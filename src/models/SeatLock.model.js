@@ -14,7 +14,7 @@ class SeatLockModel {
 
       if (check.rowCount > 0) {
         await conn.query("ROLLBACK");
-        return { success: false, error: "Some seats are already locked" };
+        return { success: false, error: "Seats are already locked, Refresh the page!" };
       }
 
       for (const seatId of seatIds) {
