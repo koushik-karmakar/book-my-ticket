@@ -7,11 +7,12 @@ import bookingRoutes from "./routes/booking.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
 import errorHandler from "./utils/errorHandler.js";
 import cors from "cors";
-
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
 app.use(
     cors({
-        origin: "http://localhost:5173",
+        origin: process.env.CORS_URL || "http://localhost:8000",
         credentials: true,
     }),
 );
