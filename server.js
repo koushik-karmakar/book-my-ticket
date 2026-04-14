@@ -4,7 +4,7 @@ dotenv.config();
 import app from "./src/app.js";
 import pool from "./src/config/db.js";
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8000;
 
 pool
     .query("SELECT 1")

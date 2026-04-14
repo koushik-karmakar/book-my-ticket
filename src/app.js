@@ -5,11 +5,16 @@ import showRoutes from "./routes/show.routes.js";
 import seatRoutes from "./routes/seat.routes.js";
 import bookingRoutes from "./routes/booking.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
-import errorHandler from "./utils/errorHandler.js"
-
+import errorHandler from "./utils/errorHandler.js";
+import cors from "cors";
 
 const app = express();
-
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true,
+    }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
